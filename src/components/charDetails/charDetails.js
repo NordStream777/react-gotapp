@@ -1,6 +1,30 @@
 import React, {Component} from 'react';
 import './charDetails.css';
+import gotService from '../../services/gotService';
 export default class CharDetails extends Component {
+
+    gotService = new gotService();
+
+    state = {
+        char: null
+    }
+
+    componentDidMount(){
+        this.updateChar();
+    }
+
+    updateChar() {
+        const {charId} = this.props;
+        if(!charId){
+            return;
+        }
+
+        this.gotService.getCharacter(charId)
+            .then((char) => {
+                this.setState({char})
+            })
+    }
+
 
     render() {
         return (
